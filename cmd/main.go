@@ -38,6 +38,8 @@ func getFeed(w http.ResponseWriter, r *http.Request){
 	}
 
 	data, _ := json.Marshal(channel.Item)
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	
 	fmt.Fprintf(w, string(data))
 }

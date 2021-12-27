@@ -1,6 +1,7 @@
 package main
 
 import(
+	"log"
 	"github.com/gorilla/mux"
 	"fmt"
 	"net/http"
@@ -12,6 +13,7 @@ func main(){
 	router.HandleFunc("/", getFeed)
 
 	http.ListenAndServe(":4000", router)
+	log.Print("I'm running")
 }
 
 func getFeed(w http.ResponseWriter, r *http.Request){

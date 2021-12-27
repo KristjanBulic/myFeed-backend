@@ -1,11 +1,20 @@
 package main
 
 import(
+	"os"
+	"encoding/json"
 	"log"
 	"github.com/gorilla/mux"
 	"fmt"
 	"net/http"
+	"github.com/ungerik/go-rss"
 )
+
+var url string
+
+func init(){
+	url = os.Getenv("URL")
+}
 
 func main(){
 	router := mux.NewRouter()
@@ -17,5 +26,18 @@ func main(){
 }
 
 func getFeed(w http.ResponseWriter, r *http.Request){
-	fmt.Fprintf(w, "hello")
+	
+	resp, err := rss.Read(url, true)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	channel, err := rss.Regular(resp)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	data, _ := json.Marshal(channel.Item)
+	
+	fmt.Fprintf(w, string(data))
 }

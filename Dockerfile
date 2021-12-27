@@ -2,6 +2,8 @@ FROM golang:1.17-alpine
 
 WORKDIR /app
 
+ENV URL=https://www.yahoo.com/news/rss
+
 COPY go.mod ./
 COPY go.sum ./
 
